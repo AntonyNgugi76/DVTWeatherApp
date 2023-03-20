@@ -4,8 +4,8 @@ import 'package:floor/floor.dart';
 class Favorites {
   @PrimaryKey()
   int? id;
-  String? lat;
-  String? long;
+  var lat;
+  var long;
   String? name;
 
   Favorites({

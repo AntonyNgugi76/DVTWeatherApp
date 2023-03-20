@@ -244,7 +244,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Container(
                                   margin: const EdgeInsets.only(top: 30),
                                   padding: const EdgeInsets.all(10),
-                                  child: InkWell( onTap:(){ Scaffold.of(context).openDrawer();},child: Icon(
+                                  child: InkWell( onTap:(){ Scaffold.of(context).openDrawer();},child: const Icon(
                                     CupertinoIcons.bars,
                                     size: 30,
                                     color: Colors.white,
@@ -255,11 +255,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                     padding: const EdgeInsets.all(10),
                                     child: InkWell(
                                       onTap: () {
+
                                         _favoritesRepository.insertFvorites(
                                             Favorites(
                                                 lat: lat,
                                                 long: long,
-                                                name: city));
+                                                name: city)
+
+
+                                        );
+                                        Get.snackbar('$city',"Added to Favorites");
                                       },
                                       child: const Icon(
                                         CupertinoIcons.heart,

@@ -24,5 +24,6 @@ class FavoritesRepository{
     final db = await $Floorappdatabase.databaseBuilder('favorites.db').build();
     final favoritesDao = db.favoritessDao;
     await favoritesDao.getFavorites();
+    return favoritesDao.getFavorites();
   }
 }
