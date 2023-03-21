@@ -17,7 +17,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../model/forecast.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  final String lat;
+  final String lon;
+  final String weatherType;
+  const MyHomePage({required this.lat, required this.lon, required this.weatherType, Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -44,7 +47,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     checkGps();
-    // setColorImage(_currentWeather);
+    getLocation();
+    setColorImage(widget.weatherType);
     super.initState();
   }
 
@@ -92,7 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
     long = position.longitude.toString();
     lat = position.latitude.toString();
     debugPrint('longitude $long');
-    debugPrint('longitude $lat');
+    debugPrint('latitude $lat');
+    await  setColorImage(_currentWeather);
 
     setState(() {
       //refresh UI
@@ -109,11 +114,12 @@ class _MyHomePageState extends State<MyHomePage> {
     StreamSubscription<Position> positionStream =
         Geolocator.getPositionStream(locationSettings: locationSettings)
             .listen((Position position) {
-      print(position.longitude); //Output: 80.24599079
+      debugPrint('longitude.........${position.longitude}'); //Output: 80.24599079
       print(position.latitude); //Output: 29.6593457
 
       long = position.longitude.toString();
       lat = position.latitude.toString();
+
 
       setState(() {
         //refresh UI on update
@@ -125,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
   //   await
   //   _apiProv.getCurrentWeather(lat, long);
   //
-  //   // setColorImage(_currentWeather);
+
   // }
 
   setColorImage(String _currentWeather) {
@@ -134,7 +140,8 @@ class _MyHomePageState extends State<MyHomePage> {
         image = 'assets/images/sea_rainy.png';
         color = 0xff57575D;
       });
-    } else if (_currentWeather == 'Clouds') {
+    } else if (
+    _currentWeather == 'Clouds') {
       setState(() {
         image = 'assets/images/sea_cloudy.png';
         color = 0xff54717A;
@@ -218,6 +225,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
               _currentWeather = snapshot.data?.weather?[0].main;
 
+              debugPrint('weather#########$_currentWeather');
+
               return Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
@@ -225,12 +234,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Container(
                         width: MediaQuery.of(context).size.width,
-                        decoration: const BoxDecoration(
+                        decoration:  BoxDecoration(
                             image: DecorationImage(
                           fit: BoxFit.fill,
                           image: AssetImage(
-                            // image
-                            'assets/images/sea_rainy.png',
+                            image
+                            // 'assets/images/sea_rainy.png',
                           ),
                         )),
                         height: MediaQuery.of(context).size.height * 0.5,
@@ -308,9 +317,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     ,
                     Container(
                         height: MediaQuery.of(context).size.height * 0.5,
-                        color: const Color(
-                            // color
-                            0xff57575D),
+                        color:  Color(
+                            color
+                            // 0xff57575D
+                ),
                         child: SingleChildScrollView(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

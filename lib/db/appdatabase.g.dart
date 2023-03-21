@@ -89,7 +89,7 @@ class _$appdatabase extends appdatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `WeatherHolder` (`id` INTEGER NOT NULL, `data` TEXT, PRIMARY KEY (`id`))');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Favorites` (`id` INTEGER, `lat` TEXT, `long` TEXT, `name` TEXT, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Favorites` (`id` INTEGER, `lat` REAL, `long` REAL, `name` TEXT, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -169,8 +169,9 @@ class _$FavoritesDao extends FavoritesDao {
   Future<List<Favorites>> getFavorites() async {
     return _queryAdapter.queryList('SELECT *  FROM Favorites',
         mapper: (Map<String, Object?> row) => Favorites(
-            lat: row['lat'] as String?,
-            long: row['long'] as String?,
+            id: row['id'] as int?,
+            lat: row['lat'] as double?,
+            long: row['long'] as double?,
             name: row['name'] as String?));
   }
 

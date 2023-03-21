@@ -1,4 +1,5 @@
 import 'package:dvtapp/screens/HomePage.dart';
+import 'package:dvtapp/screens/LoadingScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home:  MyHomePage(),
+      home:  LoadingScreen(),
     );
   }
 }
